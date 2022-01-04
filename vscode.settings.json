@@ -1,0 +1,45 @@
+{
+  "editor.wordWrap": "off",
+  "editor.insertSpaces": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.hover.enabled": true,
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.tabSize": 2,
+  "explorer.confirmDelete": false,
+  "eslint.run": "onSave",
+  "spellright.documentTypes": ["markdown", "plaintext"],
+  "editor.cursorStyle": "line",
+  "explorer.confirmDragAndDrop": false,
+  "workbench.sideBar.location": "right",
+  "gitlens.currentLine.enabled": false,
+  "editor.fontLigatures": true,
+  "workbench.colorTheme": "GitHub Light",
+  "editor.accessibilitySupport": "off",
+  "files.associations": {
+    ".erb": "erb"
+  },
+  "files.exclude": {
+    "node_modules": true
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.minimap.enabled": false,
+  "editor.lineHeight": 0,
+  "ruby.rubocop.onSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.suggestSelection": "first",
+  "editor.fontFamily": "MonoLisa, Source Code Pro",
+  "gitlens.blame.highlight.locations": ["gutter"],
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "editor.lineNumbers": "on",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "editor.fontSize": 14.5,
+  "editor.formatOnSave": true,
+  "gitlens.hovers.enabled": false,
+  "workbench.editor.revealIfOpen": false,
+  "security.workspace.trust.untrustedFiles": "open"
+}
