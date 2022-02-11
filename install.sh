@@ -25,6 +25,9 @@ echo '💪 install powerlevel10k'
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 
 echo '💽 gitconfig --global setup'
+#git editor
+git config --global core.editor "vim"
+echo '✍ setting git default editor to vim'
 #git rerere enabled
 git config --global rerere.enabled true
 #git log alias
