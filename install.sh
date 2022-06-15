@@ -39,3 +39,5 @@ echo '✅ done'
 echo '🔗 link configs'
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
+
+echo "set editing-mode vi" >> ~/.inputrc
