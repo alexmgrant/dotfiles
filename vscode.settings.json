@@ -1,45 +1,64 @@
 {
-  "editor.wordWrap": "off",
-  "editor.insertSpaces": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.hover.enabled": true,
-  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
-  "editor.tabSize": 2,
+  "security.workspace.trust.untrustedFiles": "open",
   "explorer.confirmDelete": false,
-  "eslint.run": "onSave",
-  "spellright.documentTypes": ["markdown", "plaintext"],
-  "editor.cursorStyle": "line",
-  "explorer.confirmDragAndDrop": false,
+  "workbench.colorTheme": "Tokyo Night Light",
+  "workbench.preferredHighContrastColorTheme": "Tokyo Night",
+  "workbench.preferredLightColorTheme": "Tokyo Night Light",
   "workbench.sideBar.location": "right",
-  "gitlens.currentLine.enabled": false,
-  "editor.fontLigatures": true,
-  "workbench.colorTheme": "GitHub Light",
-  "editor.accessibilitySupport": "off",
-  "files.associations": {
-    ".erb": "erb"
-  },
+  "eslint.run": "onSave",
+  "workbench.editor.revealIfOpen": false,
   "files.exclude": {
     "node_modules": true
   },
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.minimap.enabled": false,
-  "editor.lineHeight": 0,
-  "ruby.rubocop.onSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "editor.suggestSelection": "first",
-  "editor.fontFamily": "MonoLisa, Source Code Pro",
+  "gitlens.currentLine.enabled": false,
   "gitlens.blame.highlight.locations": ["gutter"],
+  "gitlens.codeLens.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.hovers.enabled": false,
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
-  "editor.lineNumbers": "on",
-  "gitlens.codeLens.enabled": false,
-  "gitlens.hovers.currentLine.over": "line",
-  "editor.fontSize": 14.5,
+  "remote.SSH.defaultExtensions": [
+    "eamodio.gitlens",
+    "github.copilot",
+    "wallabyjs.quokka-vscode"
+  ],
+
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": true,
+    "markdown": false
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "shopifyGlobal.mysqlEditor": "external",
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnType": true,
+    "editor.semanticHighlighting.enabled": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "editor.minimap.enabled": false,
   "editor.formatOnSave": true,
-  "gitlens.hovers.enabled": false,
-  "workbench.editor.revealIfOpen": false,
-  "security.workspace.trust.untrustedFiles": "open"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.rulers": [120],
+  "editor.largeFileOptimizations": false,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.lineNumbers": "relative",
+  "editor.fontFamily": "'MonoLisa Variable-NoScript', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14.5,
+  "editor.lineHeight": 0,
+  "editor.fontVariations": true,
+  "editor.fontLigatures": "'calt' on, 'liga' on, 'zero' on, 'ss02' off, 'ss06' off, 'ss01' on, 'ss10' on, 'frac' on",
+  "settingsSync.ignoredExtensions": ["2gua.rainbow-brackets"]
 }

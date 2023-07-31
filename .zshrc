@@ -105,6 +105,7 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vi ~/.zshrc"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias zshreload="source ~/.zshrc"
+alias spinhost="hostname -A"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
