@@ -18,7 +18,6 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
 Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sbdchd/neoformat'
 Plug 'github/copilot.vim'
 Plug 'vim-ruby/vim-ruby'
@@ -53,6 +52,8 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+nnoremap <leader>8 :noh<CR>
 
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowLineNumbers=1
