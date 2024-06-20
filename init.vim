@@ -8,6 +8,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
+Plug 'prettier/vim-prettier' 
 call plug#end()
 
 set scrolloff=10
@@ -55,6 +56,11 @@ nnoremap <leader>8 :noh<CR>
 
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#autoformat_config_present = 1
 
 " relative line numbers 
 autocmd FileType nerdtree setlocal relativenumber
