@@ -1,19 +1,3 @@
-set scrolloff=10
-set number
-set relativenumber
-set tabstop=2 softtabstop=2
-set shiftwidth=2
-set expandtab
-set smartindent
-set nowrap
-set nocompatible 
-
-syntax on " Enable syntax highlighting
-filetype on " Enable filetype detection
-filetype indent on " Enable filetype-specific indenting
-filetype plugin on " Eable filetype-specific plugins
-
-" Plugins
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
@@ -26,7 +10,21 @@ Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
-" Maps
+set scrolloff=10
+set number
+set relativenumber
+set tabstop=2 softtabstop=2
+set shiftwidth=2
+set expandtab
+set smartindent
+set nowrap
+set mouse=a
+set nocompatible 
+
+syntax on 
+filetype on 
+filetype plugin indent on 
+
 let mapleader = " "
 nnoremap <leader>pv :Vex<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
