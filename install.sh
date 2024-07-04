@@ -27,12 +27,6 @@ fi
 
 echo '🔥 erasing current config'
 rm -rf $HOME/.zshrc
-rm -rf $HOME/.p10k.zsh
-
-if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
-  echo '💪 install powerlevel10k'
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-fi
 
 echo '💽 gitconfig --global setup'
 #git editor
@@ -46,8 +40,5 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --list | grep alias
 echo '✅ done'
 
-echo '🔗 link configs'
-ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
-ln -s $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
-
+#set editing-mode to vi
 echo "set editing-mode vi" >> ~/.inputrc
