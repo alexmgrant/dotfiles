@@ -50,6 +50,14 @@ echo '✅ done'
 echo '🔗 link configs'
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
+#install nvim
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+flatpak install flathub io.neovim.nvim
+flatpak run io.neovim.nvim
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+brew install neovim
+fi
+
 # install vim-plug
 echo 'installing vim-plug'
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
