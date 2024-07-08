@@ -9,6 +9,8 @@ Plug 'tpope/vim-rails'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'prettier/vim-prettier' 
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
 call plug#end()
 
 set scrolloff=10
@@ -53,6 +55,8 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
 nnoremap <leader>8 :noh<CR>
+
+nnoremap <leader>ogf :OpenGithubFile<CR>
 
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowLineNumbers=1
