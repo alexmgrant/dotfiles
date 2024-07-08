@@ -4,18 +4,18 @@ OMZSH="$HOME/.oh-my-zsh"
 
 if [ ! -d "$OMZSH" ]; then
   echo 'Installing oh-my-zsh'
-  /bin/sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 else
   echo '👌 oh-my-zsh found'
 fi
 
 echo 'Installing zsh plugins'
 if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
 if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 echo '✅ done'
 
@@ -30,11 +30,6 @@ fi
 echo '🔥 erasing current config'
 rm -rf $HOME/.zshrc
 
-if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
-  echo '💪 install powerlevel10k'
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-fi
-
 echo 'gitconfig --global setup'
 #git editor
 git config --global core.editor "vim"
@@ -47,15 +42,16 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --list | grep alias
 echo '✅ done'
 
-echo '🔗 link configs'
-ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+echo 'copy .zsh config'
+cp $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 #install nvim
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-flatpak install flathub io.neovim.nvim
-flatpak run io.neovim.nvim
+  flatpak install flathub io.neovim.nvim
+  flatpak run io.neovim.nvim
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-brew install neovim
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  brew install neovim
 fi
 
 # install vim-plug
@@ -66,4 +62,4 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 echo 'installing vim plugins'
 nvim --headless +PlugInstall +qall
 
-echo "set editing-mode to vi" >> ~/.inputrc
+echo "set editing-mode vi" >> ~/.inputrc
