@@ -103,6 +103,18 @@ alias zshconfig="vi ~/.zshrc"
 alias ohmyzsh="vi ~/.oh-my-zsh"
 alias zshreload="source ~/.zshrc"
 alias spinhost="hostname -A"
+alias vim="nvim"
+alias vi="nvim"
 
 # Set vim mode
 bindkey -v
+
+case "$OSTYPE" in
+  linux*)
+  ;;
+  darwin*)
+    PATH=$PATH:/opt/homebrew/bin
+    export PATH="/opt/homebrew/bin:$PATH"
+    export PATH="/opt/homebrew/sbin:$PATH"
+  ;;
+esac

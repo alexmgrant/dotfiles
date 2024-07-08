@@ -17,7 +17,6 @@ fi
 if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
-echo '✅ done'
 
 # Change default shell
 if [$0 = "-zsh"]; then
@@ -40,10 +39,9 @@ git config --global rerere.enabled true
 echo '💄 setting prettier git lg alias'
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches"
 git config --list | grep alias
-echo '✅ done'
 
 echo 'copy .zsh config'
-cp $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 #install nvim
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -63,3 +61,4 @@ echo 'installing vim plugins'
 nvim --headless +PlugInstall +qall
 
 echo "set editing-mode vi" >> ~/.inputrc
+
