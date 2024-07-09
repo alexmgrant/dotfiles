@@ -26,22 +26,37 @@ else
   echo '👌 already using zsh'
 fi
 
-echo '🔥 erasing current config'
-rm -rf $HOME/.zshrc
+ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+echo '👌 finito, copied .zsh config'
 
-echo 'gitconfig --global setup'
+mkdir -p "$HOME/.zsh"
+git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+fpath+=($HOME/.zsh/pure)
+echo '👌 finito, pure prompt installed'
+
 #git editor
 git config --global core.editor "vim"
-echo '✍ setting git default editor to vim'
 #git rerere enabled
 git config --global rerere.enabled true
 #git log alias
-echo '💄 setting prettier git lg alias'
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches"
 git config --list | grep alias
+echo '👌 finito, gitconfig --global setup'
 
-echo 'copy .zsh config'
-ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+
+if [ $SPIN ]; then
+  # Install Ripgrep for better code searching: `rg <string>` to search. Obeys .gitignore
+  sudo apt-get install -y ripgrep
+
+  # Set system generated .gitconfig to .gitconfig.local. We'll pull it in later as part
+  # of our custom gitconfig. The generated gitconfig already has the right user and email,
+  # since Spin knows that from login.
+  mv -n ~/.gitconfig ~/.gitconfig.local
+fi
+echo '👌 finito, spin setup'
+
+cp ./.gitconfig ~/.gitconfig
+echo '👌 finito, copied .gitconfig'
 
 #install nvim
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -53,12 +68,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # install vim-plug
-echo 'installing vim-plug'
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+echo '👌 finito, installed vim-plug'
 
-echo 'installing vim plugins'
 nvim --headless +PlugInstall +qall
+echo '👌 finito, installed vim plugins with PlugInstall'
 
 echo "set editing-mode vi" >> ~/.inputrc
 

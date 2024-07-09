@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="kardan"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -109,12 +109,34 @@ alias vi="nvim"
 # Set vim mode
 bindkey -v
 
+# setup pure
+autoload -U promptinit; promptinit
+zstyle :prompt:pure:git:stash show yes
+zstyle :prompt:pure:git:fetch only_upstream yes
+prompt pure
+
+# setup linux 
 case "$OSTYPE" in
   linux*)
-  ;;
-  darwin*)
-    PATH=$PATH:/opt/homebrew/bin
-    export PATH="/opt/homebrew/bin:$PATH"
-    export PATH="/opt/homebrew/sbin:$PATH"
-  ;;
+;;
 esac
+
+# setup osx
+case $ZSH_HOST_OS in
+	darwin*)
+  
+  BREW_EXECUTABLE=/opt/homebrew/bin/brew
+
+  $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
+  $BREW_EXECUTABLE install coreutils
+
+  PATH=$PATH:/opt/homebrew/bin
+  export PATH="/opt/homebrew/bin:$PATH"
+  export PATH="/opt/homebrew/sbin:$PATH"
+
+  defaults write com.apple.finder AppleShowAllFiles YES
+
+  alias stfu="osascript -e 'set volume output muted true'"
+;;
+esac
+
