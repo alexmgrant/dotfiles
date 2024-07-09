@@ -110,6 +110,8 @@ alias vi="nvim"
 bindkey -v
 
 # setup pure
+fpath+=($HOME/.zsh/pure)
+
 autoload -U promptinit; promptinit
 zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:git:fetch only_upstream yes
@@ -122,13 +124,8 @@ case "$OSTYPE" in
 esac
 
 # setup osx
-case $ZSH_HOST_OS in
+case "$OSTYPE" in
 	darwin*)
-  
-  BREW_EXECUTABLE=/opt/homebrew/bin/brew
-
-  $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
-  $BREW_EXECUTABLE install coreutils
 
   PATH=$PATH:/opt/homebrew/bin
   export PATH="/opt/homebrew/bin:$PATH"

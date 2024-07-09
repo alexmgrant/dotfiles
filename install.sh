@@ -31,7 +31,6 @@ echo '👌 finito, copied .zsh config'
 
 mkdir -p "$HOME/.zsh"
 git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
-fpath+=($HOME/.zsh/pure)
 echo '👌 finito, pure prompt installed'
 
 #git editor
@@ -58,14 +57,19 @@ echo '👌 finito, spin setup'
 cp ./.gitconfig ~/.gitconfig
 echo '👌 finito, copied .gitconfig'
 
-#install nvim
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   flatpak install flathub io.neovim.nvim
   flatpak run io.neovim.nvim
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  BREW_EXECUTABLE=/opt/homebrew/bin/brew
+
+  $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
+  $BREW_EXECUTABLE install coreutils
+
   brew install neovim
 fi
+echo '👌 finito, installed neovim'
 
 # install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
