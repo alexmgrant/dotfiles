@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 set -e
-
-echo $HOME
+echo "HOME path: $HOME"
 
 OMZSH="$HOME/.oh-my-zsh"
-SCRIPT_DIR=$(dirname "$0")
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
 SKIP_NVIM=false
+echo "SCRIPT_DIR path: $SCRIPT_DIR"
 
 for arg in "$@"
 do
@@ -18,8 +18,8 @@ do
   esac
 done
 
-if [ -d "$ZSH_VERSION" ]; then
-  echo '👌 oh-my-zsh found'
+if command -v zsh &> /dev/null; then
+    echo '👌 oh-my-zsh found'
 else
   case "$OSTYPE" in
     linux*)
@@ -58,7 +58,7 @@ fi
 echo '👌 finito, zsh plugins installed'
 
 
-cp "$SCRIPT_DIR/.zshrc" $HOME/.zshrc
+ln -sf "$SCRIPT_DIR/.zshrc" $HOME/.zshrc
 echo '👌 finito, copied .zsh config'
 
 if [ -d $HOME/.zsh/pure ]; then
@@ -82,7 +82,7 @@ if [ $SPIN ]; then
   echo '👌 finito, spin setup'
 fi
 
-cp "$SCRIPT_DIR/.gitconfig" $HOME/.gitconfig
+ln -sf "$SCRIPT_DIR/.gitconfig" $HOME/.gitconfig
 echo '👌 finito, copied .gitconfig'
 
 git config --global core.editor "vim"
@@ -91,13 +91,17 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --list | grep alias
 echo '👌 finito, gitconfig --global setup'
 
+setup_neovim_build() { 
+  git -C neovim pull || git clone https://github.com/neovim/neovim
+  cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+}
+
 case "$OSTYPE" in
   linux*) 
     # install dependencies & build neovim
     if [ "$SKIP_NVIM" = false ]; then
-      sudo apt-get --no-upgrade install ninja-build gettext cmake unzip curl build-essential
-      git -C neovim pull || git clone https://github.com/neovim/neovim
-      cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+      sudo apt-get --no-upgrade install ninja-build gettext cmake unzip curl build-essential  
+      setup_neovim_build
       cd build && cpack -G DEB && sudo dpkg -i --force-overwrite nvim-linux64.deb 
       echo '👌 finito, installed neovim'  
     fi
@@ -111,9 +115,14 @@ case "$OSTYPE" in
 
       $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
       $BREW_EXECUTABLE install coreutils
-
-      brew install neovim
-      echo '👌 finito, installed neovim'
+    
+    # install dependencies & build neovim
+    if [ "$SKIP_NVIM" = false ]; then
+        brew install ninja cmake gettext curl
+        setup_neovim_build
+        sudo make install
+        echo '👌 finito, installed neovim'
+    fi
       ;;
   esac
 
@@ -121,7 +130,7 @@ case "$OSTYPE" in
     mkdir $HOME/.config/nvim
   fi
 
-  cp "$SCRIPT_DIR/.vimrc" $HOME/.config/nvim/init.vim
+  ln -sf "$SCRIPT_DIR/.vimrc" $HOME/.config/nvim/init.vim
   echo '👌 finito, copied init.vim'
 
 # install vim-plug

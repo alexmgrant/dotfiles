@@ -30,6 +30,7 @@
   # Forcepush, but fail if the remote has been updated since you last pulled.
   # Prevents clobbering other people's commits on the same branch unless you really, really want to.
   forcepush = push --force-with-lease
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
 
 [apply]
   # Detect whitespace errors when applying a patch
@@ -50,6 +51,7 @@
   # Prevent showing files whose names contain non-ASCII symbols as unversioned.
   # http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
   precomposeunicode = false
+	editor = vim
 
 [color "branch"]
   current = yellow reverse
@@ -87,5 +89,5 @@
   # Reuse Recorded Resolution
   # If you have a merge conflict, this setting will record how that conflict was resolved. If you would then need to
   # resolve that same conflict in a future rebase, this setting will reuse your previously recorded conflict resolution.
-  enabled = true
+	enabled = true
   autoupdate = true
