@@ -1,6 +1,6 @@
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'preservim/nerdtree'
 Plug 'sbdchd/neoformat'
 Plug 'github/copilot.vim'
@@ -22,7 +22,7 @@ set expandtab
 set smartindent
 set nowrap
 set mouse=a
-set nocompatible 
+set notermguicolors
 
 syntax on 
 filetype on 

@@ -120,20 +120,22 @@ prompt pure
 # setup linux 
 case "$OSTYPE" in
   linux*)
-;;
+    . "$HOME/.asdf/asdf.sh"
+    . "$HOME/.asdf/completions/asdf.bash"
+    ;;
 esac
 
 # setup osx
 case "$OSTYPE" in
-	darwin*)
+  darwin*)
 
-  PATH=$PATH:/opt/homebrew/bin
-  export PATH="/opt/homebrew/bin:$PATH"
-  export PATH="/opt/homebrew/sbin:$PATH"
+    PATH=$PATH:/opt/homebrew/bin
+    export PATH="/opt/homebrew/bin:$PATH"
+    export PATH="/opt/homebrew/sbin:$PATH"
 
-  defaults write com.apple.finder AppleShowAllFiles YES
+    defaults write com.apple.finder AppleShowAllFiles YES
 
-  alias stfu="osascript -e 'set volume output muted true'"
-;;
+    alias stfu="osascript -e 'set volume output muted true'"
+    ;;
 esac
 
