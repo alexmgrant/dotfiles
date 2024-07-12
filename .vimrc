@@ -8,7 +8,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
-Plug 'prettier/vim-prettier' 
+Plug 'prettier/vim-prettier'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 call plug#end()
@@ -24,9 +24,9 @@ set nowrap
 set mouse=a
 set notermguicolors
 
-syntax on 
-filetype on 
-filetype plugin indent on 
+syntax on
+filetype on
+filetype plugin indent on
 
 let mapleader = " "
 nnoremap <leader>pv :Vex<CR>
@@ -66,7 +66,7 @@ let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 let g:prettier#autoformat_config_present = 1
 
-" relative line numbers 
+" relative line numbers
 autocmd FileType nerdtree setlocal relativenumber
 
 " if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
@@ -77,6 +77,6 @@ autocmd BufEnter * if winnr() == winnr('h') && bufname('#') =~ 'NERD_tree_\d\+' 
 autocmd VimEnter * NERDTree | wincmd p
 
 " vim-ruby | vim-rails
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
