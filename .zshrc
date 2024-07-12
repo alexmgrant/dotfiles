@@ -120,8 +120,10 @@ prompt pure
 # setup linux 
 case "$OSTYPE" in
   linux*)
-    . "$HOME/.asdf/asdf.sh"
-    . "$HOME/.asdf/completions/asdf.bash"
+    if command -v asdf &> /dev/null; then
+      . "$HOME/.asdf/asdf.sh"
+      . "$HOME/.asdf/completions/asdf.bash"
+    fi
     ;;
 esac
 
@@ -139,3 +141,12 @@ case "$OSTYPE" in
     ;;
 esac
 
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+# cloudplatform: add Shopify clusters to your local kubernetes config
+export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/alex/.kube/config:/Users/alex/.kube/config.shopify.cloudplatform
