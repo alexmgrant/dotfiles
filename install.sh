@@ -71,6 +71,8 @@ fi
 
 # spin setup. This needs to run before copying .gitconfig
 if [ $SPIN ]; then
+  SKIP_NVIM=true
+
   # Install Ripgrep for better code searching: `rg <string>` to search. Obeys .gitignore
   sudo apt-get install -y ripgrep
 
