@@ -117,7 +117,7 @@ zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:git:fetch only_upstream yes
 prompt pure
 
-# setup linux 
+# setup linux
 case "$OSTYPE" in
   linux*)
     if command -v asdf &> /dev/null; then

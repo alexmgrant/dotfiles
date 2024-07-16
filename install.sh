@@ -23,7 +23,7 @@ if command -v zsh &> /dev/null; then
 else
   case "$OSTYPE" in
     linux*)
-      sudo apt install zsh
+      sudo apt-get --assume-yes install zsh
       ;;
   esac
 
@@ -58,6 +58,8 @@ fi
 echo '👌 finito, zsh plugins installed'
 
 
+[ -f $HOME/.zshrc ] && mv -n $HOME/.zshrc $HOME/.zshrc.local
+echo '👌 finito, created .zshrc.local backup'
 ln -sf "$SCRIPT_DIR/.zshrc" $HOME/.zshrc
 echo '👌 finito, copied .zsh config'
 
@@ -74,7 +76,7 @@ if [ $SPIN ]; then
   SKIP_NVIM=true
 
   # Install Ripgrep for better code searching: `rg <string>` to search. Obeys .gitignore
-  sudo apt-get install -y ripgrep
+  sudo apt-get --assume-yes install -y ripgrep
 
   # Set system generated .gitconfig to .gitconfig.local. We'll pull it in later as part
   # of our custom gitconfig. The generated gitconfig already has the right user and email,
@@ -102,7 +104,7 @@ case "$OSTYPE" in
   linux*) 
     # install dependencies & build neovim
     if [ "$SKIP_NVIM" = false ]; then
-      sudo apt-get --no-upgrade install ninja-build gettext cmake unzip curl build-essential  
+      sudo apt-get --assume-yes install ninja-build gettext cmake unzip curl build-essential  
       setup_neovim_build
       cd build && cpack -G DEB && sudo dpkg -i --force-overwrite nvim-linux64.deb 
       echo '👌 finito, installed neovim'  
