@@ -11,6 +11,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'prettier/vim-prettier'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
+Plug 'whiteinge/diffconflicts'
 call plug#end()
 
 set scrolloff=10
