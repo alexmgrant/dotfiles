@@ -28,10 +28,6 @@ vim.opt.smartindent = true
 vim.opt.wrap = false  -- 'nowrap' is set by disabling 'wrap'
 vim.opt.mouse = 'a'
 
-vim.cmd.colorscheme('tokyonight')
-vim.cmd.syntax('on')
-vim.cmd.filetype('plugin indent on')
-
 vim.g.mapleader = ' '
 vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader><CR>', ':so ~/.config/nvim/init.lua<CR>', { noremap = true })
@@ -98,6 +94,11 @@ require('lazy').setup({
   {'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate'}
 })
 
+
+vim.cmd.colorscheme('tokyonight')
+vim.cmd.syntax('on')
+vim.cmd.filetype('plugin indent on')
+
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -105,8 +106,6 @@ lsp_zero.on_attach(function(client, bufnr)
   -- to learn the available actions
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
-
-require('lspconfig').vtsls.setup({})
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
