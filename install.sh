@@ -145,5 +145,11 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
   nvim --headless +PlugInstall +qall
   echo '👌 finito, installed vim plugins with PlugInstall'
 
+  nvim --headless +"TSInstall typescript" +qall
+  nvim --headless +"TSInstall javascript" +qall
+  nvim --headless +"TSInstall tsx" +qall
+  nvim --headless +"TSInstall jsx" +qall
+  echo '👌 finito, installed language syntax with TSInstall'
+
   echo "set editing-mode vi" >> $HOME/.inputrc
 

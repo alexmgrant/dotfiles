@@ -12,6 +12,9 @@ Plug 'prettier/vim-prettier'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'whiteinge/diffconflicts'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'folke/tokyonight.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 set scrolloff=10
@@ -25,6 +28,7 @@ set nowrap
 set mouse=a
 set notermguicolors
 
+colorscheme tokyonight-night
 syntax on
 filetype on
 filetype plugin indent on
