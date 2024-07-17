@@ -17,6 +17,59 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.scrolloff = 10
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.wrap = false  -- 'nowrap' is set by disabling 'wrap'
+vim.opt.mouse = 'a'
+
+vim.cmd.colorscheme('tokyonight')
+vim.cmd.syntax('on')
+vim.cmd.filetype('plugin indent on')
+
+vim.g.mapleader = ' '
+vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader><CR>', ':so ~/.config/nvim/init.lua<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>:q<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>l', '<C-w>l', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>h', '<C-w>h', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>k', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>j', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>v', '<C-w>v', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>s', '<C-w>s', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<C-j>', ':cnext<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-k>', ':cprev<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>8', ':noh<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>ogf', ':OpenGithubFile<CR>', { noremap = true })
+
+vim.g.NERDTreeWinPos = "right"
+vim.g.NERDTreeShowLineNumbers = 1
+vim.g.NERDTreeShowHidden = 1
+
+vim.g.prettier_autoformat = 1
+vim.g.prettier_autoformat_require_pragma = 0
+vim.g.prettier_autoformat_config_present = 1
+
 require('lazy').setup({
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
@@ -89,59 +142,6 @@ cmp.setup({
     end,
   },
 })
-
-vim.opt.scrolloff = 10
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.wrap = false  -- 'nowrap' is set by disabling 'wrap'
-vim.opt.mouse = 'a'
-
-vim.cmd.colorscheme('tokyonight')
-vim.cmd.syntax('on')
-vim.cmd.filetype('plugin indent on')
-
-vim.g.mapleader = ' '
-vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader><CR>', ':so ~/.config/nvim/init.lua<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>:q<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>l', '<C-w>l', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>h', '<C-w>h', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>k', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>j', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>v', '<C-w>v', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>s', '<C-w>s', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<C-j>', ':cnext<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-k>', ':cprev<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>8', ':noh<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>ogf', ':OpenGithubFile<CR>', { noremap = true })
-
-vim.g.NERDTreeWinPos = "right"
-vim.g.NERDTreeShowLineNumbers = 1
-vim.g.NERDTreeShowHidden = 1
-
-vim.g.prettier_autoformat = 1
-vim.g.prettier_autoformat_require_pragma = 0
-vim.g.prettier_autoformat_config_present = 1
 
 -- Relative line numbers in NERDTree
 vim.api.nvim_create_autocmd("FileType", {
