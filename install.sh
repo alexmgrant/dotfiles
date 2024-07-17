@@ -140,7 +140,7 @@ case "$OSTYPE" in
     mkdir $HOME/.config/nvim
   fi
 
-  ln -sf "$SCRIPT_DIR/lua.init" $HOME/.config/nvim/lua.init
+  ln -sf "$SCRIPT_DIR/init.lua" $HOME/.config/nvim/init.lua
   echo '👌 finito, copied init.vim'
 
 # install vim-plug
