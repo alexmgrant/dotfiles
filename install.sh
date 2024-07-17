@@ -16,6 +16,12 @@ do
       shift # Remove --skip-nvim from processing
       ;;
   esac
+  case $arg in
+    --skip-zsh)
+      SKIP_ZSH=true
+      shift # Remove --skip-zsh from processing
+      ;;
+  esac
 done
 
 if command -v zsh &> /dev/null; then
@@ -134,7 +140,7 @@ case "$OSTYPE" in
     mkdir $HOME/.config/nvim
   fi
 
-  ln -sf "$SCRIPT_DIR/.vimrc" $HOME/.config/nvim/init.vim
+  ln -sf "$SCRIPT_DIR/lua.init" $HOME/.config/nvim/lua.init
   echo '👌 finito, copied init.vim'
 
 # install vim-plug
@@ -150,6 +156,13 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
   nvim --headless +"TSInstall tsx" +qall
   nvim --headless +"TSInstall jsx" +qall
   echo '👌 finito, installed language syntax with TSInstall'
+
+  nvim --headless +"LspInstall bashls" +qall
+  nvim --headless +"LspInstall cssls" +qall
+  nvim --headless +"LspInstall html" +qall
+  nvim --headless +"LspInstall jsonls" +qall
+  nvim --headless +"LspInstall vtsls" +qall # typescript language serve
+  echo '👌 finito, installed lsp servers'
 
   echo "set editing-mode vi" >> $HOME/.inputrc
 
