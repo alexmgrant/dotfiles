@@ -58,14 +58,6 @@ vim.api.nvim_set_keymap('n', '<leader>8', ':noh<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<leader>ogf', ':OpenGithubFile<CR>', { noremap = true })
 
-vim.g.NERDTreeWinPos = "right"
-vim.g.NERDTreeShowLineNumbers = 1
-vim.g.NERDTreeShowHidden = 1
-
-vim.g.prettier_autoformat = 1
-vim.g.prettier_autoformat_require_pragma = 0
-vim.g.prettier_autoformat_config_present = 1
-
 require('lazy').setup({
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
@@ -98,6 +90,14 @@ require('lazy').setup({
 vim.cmd.colorscheme('tokyonight')
 vim.cmd.syntax('on')
 vim.cmd.filetype('plugin indent on')
+
+vim.g.NERDTreeWinPos = "right"
+vim.g.NERDTreeShowLineNumbers = 1
+vim.g.NERDTreeShowHidden = 1
+
+vim.g['prettier#prettier_autoformat'] = 1
+vim.g['prettier#autoformat_config_present'] = 1
+vim.g['prettier#autoformat_require_pragma'] = 0
 
 local lsp_zero = require('lsp-zero')
 
