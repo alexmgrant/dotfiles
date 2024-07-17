@@ -27,6 +27,7 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false  -- 'nowrap' is set by disabling 'wrap'
 vim.opt.mouse = 'a'
+vim.opt.termguicolors = true
 
 vim.g.mapleader = ' '
 vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
@@ -49,14 +50,16 @@ vim.api.nvim_set_keymap('n', '<leader>s', '<C-w>s', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-j>', ':cnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-k>', ':cprev<CR>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeRefresh<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFileToggle!<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<leader>8', ':noh<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<leader>ogf', ':OpenGithubFile<CR>', { noremap = true })
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 require('lazy').setup({
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
@@ -72,7 +75,6 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim', tag = '0.1.8', 
     dependencies = {'nvim-lua/plenary.nvim'}
   },
-  {'preservim/nerdtree'},
   {'sbdchd/neoformat'},
   {'github/copilot.vim'},
   {'vim-ruby/vim-ruby'},
@@ -83,21 +85,34 @@ require('lazy').setup({
   {'tyru/open-browser.vim'},
   {'tyru/open-browser-github.vim'},
   {'whiteinge/diffconflicts'},
-  {'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate'}
+  {'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate'},
+  {'nvim-tree/nvim-tree.lua'}
 })
-
 
 vim.cmd.colorscheme('tokyonight')
 vim.cmd.syntax('on')
 vim.cmd.filetype('plugin indent on')
 
-vim.g.NERDTreeWinPos = "right"
-vim.g.NERDTreeShowLineNumbers = 1
-vim.g.NERDTreeShowHidden = 1
-
 vim.g['prettier#prettier_autoformat'] = 1
 vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
+
+require("nvim-tree").setup({
+  view = {
+    side = 'right',
+    number = true,
+    relativenumber = true,
+  },
+  renderer = {
+    icons = {
+      show = {
+        file = false,
+        folder = false,
+        folder_arrow = false,
+      },
+    },
+  },
+})
 
 local lsp_zero = require('lsp-zero')
 
@@ -140,36 +155,6 @@ cmp.setup({
       require('luasnip').lsp_expand(args.body)
     end,
   },
-})
-
--- Relative line numbers in NERDTree
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "nerdtree",
-  callback = function()
-    vim.wo.relativenumber = true
-  end
-})
-
--- If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
-  callback = function()
-    if vim.fn.winnr() == vim.fn.winnr('h') and vim.fn.bufname('#'):match('NERD_tree_\\d+') and not vim.fn.bufname('%'):match('NERD_tree_\\d+') and vim.fn.winnr('$') > 1 then
-      local buf = vim.fn.bufnr()
-      vim.cmd('buffer#')
-      vim.cmd('normal! <C-W>w')
-      vim.cmd('buffer' .. buf)
-    end
-  end
-})
-
--- Start NERDTree and put the cursor back in the other window
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  callback = function()
-    vim.cmd('NERDTree')
-    vim.cmd('wincmd p')
-  end
 })
 
 -- vim-ruby | vim-rails settings for ruby and eruby filetypes
