@@ -26,7 +26,6 @@ set expandtab
 set smartindent
 set nowrap
 set mouse=a
-set notermguicolors
 
 colorscheme tokyonight-night
 syntax on
