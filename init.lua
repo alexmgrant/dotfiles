@@ -71,7 +71,7 @@ require('lazy').setup({
   {'folke/tokyonight.nvim'},
   {'nvim-lua/plenary.nvim'},
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8', 
+    'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = {'nvim-lua/plenary.nvim'}
   },
   {'sbdchd/neoformat'},
@@ -87,7 +87,31 @@ require('lazy').setup({
   },
   {'whiteinge/diffconflicts'},
   {'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate'},
-  {'nvim-tree/nvim-tree.lua'}
+  {'nvim-tree/nvim-tree.lua'},
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+  }
 })
 
 vim.cmd.colorscheme('tokyonight')
@@ -176,8 +200,8 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { 
-    'lua_ls', 
+  ensure_installed = {
+    'lua_ls',
     'bashls',
     'cssls',
     'html',
@@ -192,7 +216,7 @@ require('mason-lspconfig').setup({
 })
 
 local cmp = require('cmp')
-local cmp_action = lsp_zero.cmp_action()
+-- local cmp_action = lsp_zero.cmp_action()
 
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
