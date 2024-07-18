@@ -25,7 +25,7 @@ do
 done
 
 if command -v zsh &> /dev/null; then
-    echo '👌 oh-my-zsh found'
+  echo '👌 oh-my-zsh found'
 else
   case "$OSTYPE" in
     linux*)
@@ -115,54 +115,54 @@ case "$OSTYPE" in
       cd build && cpack -G DEB && sudo dpkg -i --force-overwrite nvim-linux64.deb 
       echo '👌 finito, installed neovim'  
     fi
-      ;;
-  esac
+    ;;
+esac
 
-  case "$OSTYPE" in
-    darwin*)
-      eval "$(/opt/homebrew/bin/brew shellenv)"
-      BREW_EXECUTABLE=/opt/homebrew/bin/brew
+case "$OSTYPE" in
+  darwin*)
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    BREW_EXECUTABLE=/opt/homebrew/bin/brew
 
-      $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
-      $BREW_EXECUTABLE install coreutils
-    
+    $BREW_EXECUTABLE shellenv > $HOME/.dotfile_brew_setup
+    $BREW_EXECUTABLE install coreutils
+
+    # Faster keyboard repeat rate
+    defaults write NSGlobalDomain KeyRepeat -int 1
+    defaults write NSGlobalDomain InitialKeyRepeat -int 12
+
+    # Show hidden files in finder 
+    defaults write com.apple.finder AppleShowAllFiles YES
+
     # install dependencies & build neovim
     if [ "$SKIP_NVIM" = false ]; then
-        brew install ninja cmake gettext curl
-        setup_neovim_build
-        sudo make install
-        echo '👌 finito, installed neovim'
+      brew install ninja cmake gettext curl
+      setup_neovim_build
+      sudo make install
+      echo '👌 finito, installed neovim'
     fi
-      ;;
-  esac
+    ;;
+esac
 
-  if [ ! -d "$HOME/.config/nvim" ]; then
-    mkdir $HOME/.config/nvim
-  fi
+if [ ! -d "$HOME/.config/nvim" ]; then
+  mkdir $HOME/.config/nvim
+fi
 
-  ln -sf "$SCRIPT_DIR/init.lua" $HOME/.config/nvim/init.lua
-  echo '👌 finito, copied init.vim'
+ln -sf "$SCRIPT_DIR/init.lua" $HOME/.config/nvim/init.lua
+echo '👌 finito, copied init.vim'
 
 # install vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  echo '👌 finito, installed vim-plug'
+nvim --headless +"TSInstall typescript" +qall
+nvim --headless +"TSInstall javascript" +qall
+nvim --headless +"TSInstall tsx" +qall
+nvim --headless +"TSInstall jsx" +qall
+echo '👌 finito, installed language syntax with TSInstall'
 
-  nvim --headless +PlugInstall +qall
-  echo '👌 finito, installed vim plugins with PlugInstall'
+nvim --headless +"LspInstall bashls" +qall
+nvim --headless +"LspInstall cssls" +qall
+nvim --headless +"LspInstall html" +qall
+nvim --headless +"LspInstall jsonls" +qall
+nvim --headless +"LspInstall vtsls" +qall # typescript language serve
+echo '👌 finito, installed lsp servers'
 
-  nvim --headless +"TSInstall typescript" +qall
-  nvim --headless +"TSInstall javascript" +qall
-  nvim --headless +"TSInstall tsx" +qall
-  nvim --headless +"TSInstall jsx" +qall
-  echo '👌 finito, installed language syntax with TSInstall'
-
-  nvim --headless +"LspInstall bashls" +qall
-  nvim --headless +"LspInstall cssls" +qall
-  nvim --headless +"LspInstall html" +qall
-  nvim --headless +"LspInstall jsonls" +qall
-  nvim --headless +"LspInstall vtsls" +qall # typescript language serve
-  echo '👌 finito, installed lsp servers'
-
-  echo "set editing-mode vi" >> $HOME/.inputrc
+echo "set editing-mode vi" >> $HOME/.inputrc
 
