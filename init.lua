@@ -1,6 +1,6 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 local uv = vim.uv or vim.loop
-
+-- 
 -- Auto-install lazy.nvim if not present
 if not uv.fs_stat(lazypath) then
   print('Installing lazy.nvim....')
@@ -50,9 +50,8 @@ vim.api.nvim_set_keymap('n', '<leader>s', '<C-w>s', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-j>', ':cnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-k>', ':cprev<CR>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeRefresh<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFileToggle!<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFile!<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<leader>8', ':noh<CR>', { noremap = true })
 
@@ -97,7 +96,22 @@ vim.g['prettier#prettier_autoformat'] = 1
 vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
 
+local function nvim_tree_on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', '<C-t>', function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end, opts('Toggle'))
+end
+
 require("nvim-tree").setup({
+  on_attach = nvim_tree_on_attach,
   view = {
     side = 'right',
     number = true,
@@ -107,8 +121,30 @@ require("nvim-tree").setup({
     icons = {
       show = {
         file = false,
-        folder = false,
+        folder = true,
         folder_arrow = false,
+      },
+      git_placement = "after",
+      glyphs = {
+        git = {
+          unstaged = "○",
+          staged = "●",
+          unmerged = "◑",
+          renamed = "➲",
+          untracked = "◍",
+          deleted = "⌫",
+          ignored = "◌",
+        },
+        folder = {
+          arrow_closed = "→",
+          arrow_open = "↓",
+          default = "↳",
+          open = "↴",
+          empty = "∅",
+          empty_open = "↴",
+          symlink = "↔",
+          symlink_open = "↕",
+        },
       },
     },
   },
