@@ -147,22 +147,9 @@ if [ ! -d "$HOME/.config/nvim" ]; then
   mkdir $HOME/.config/nvim
 fi
 
+ln -sf "$SCRIPT_DIR/.luarc.json" $HOME/.config/nvim/luarc.json
 ln -sf "$SCRIPT_DIR/init.lua" $HOME/.config/nvim/init.lua
 echo '👌 finito, copied init.vim'
-
-# install vim-plug
-nvim --headless +"TSInstall typescript" +qall
-nvim --headless +"TSInstall javascript" +qall
-nvim --headless +"TSInstall tsx" +qall
-nvim --headless +"TSInstall jsx" +qall
-echo '👌 finito, installed language syntax with TSInstall'
-
-nvim --headless +"LspInstall bashls" +qall
-nvim --headless +"LspInstall cssls" +qall
-nvim --headless +"LspInstall html" +qall
-nvim --headless +"LspInstall jsonls" +qall
-nvim --headless +"LspInstall vtsls" +qall # typescript language serve
-echo '👌 finito, installed lsp servers'
 
 echo "set editing-mode vi" >> $HOME/.inputrc
 

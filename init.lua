@@ -1,6 +1,6 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 local uv = vim.uv or vim.loop
--- 
+
 -- Auto-install lazy.nvim if not present
 if not uv.fs_stat(lazypath) then
   print('Installing lazy.nvim....')
@@ -25,7 +25,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-vim.opt.wrap = false  -- 'nowrap' is set by disabling 'wrap'
+vim.opt.wrap = false -- 'nowrap' is set by disabling 'wrap'
 vim.opt.mouse = 'a'
 vim.opt.termguicolors = true
 
@@ -81,20 +81,35 @@ require('lazy').setup({
   {'dense-analysis/ale'},
   {'tpope/vim-fugitive'},
   {'prettier/vim-prettier'},
-  {'tyru/open-browser.vim'},
-  {'tyru/open-browser-github.vim'},
+  {
+    'tyru/open-browser-github.vim',
+    dependencies = {'tyru/open-browser.vim'}
+  },
   {'whiteinge/diffconflicts'},
   {'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate'},
   {'nvim-tree/nvim-tree.lua'}
 })
 
 vim.cmd.colorscheme('tokyonight')
-vim.cmd.syntax('on')
 vim.cmd.filetype('plugin indent on')
 
 vim.g['prettier#prettier_autoformat'] = 1
 vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
+
+require'nvim-treesitter.configs'.setup({
+  ensure_installed = { 
+    "lua", 
+    "vim", 
+    "vimdoc", 
+    "markdown", 
+    "markdown_inline",
+    "typescript",
+    "javascript",
+    "tsx"
+  },
+})
+
 
 local function nvim_tree_on_attach(bufnr)
   local api = require "nvim-tree.api"
@@ -160,6 +175,14 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
+  ensure_installed = { 
+    'lua_ls', 
+    'bashls',
+    'cssls',
+    'html',
+    'jsonls',
+    'vtsls'
+  },
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({})

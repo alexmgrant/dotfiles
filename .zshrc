@@ -119,11 +119,8 @@ prompt pure
 
 # setup linux
 case "$OSTYPE" in
-  linux*)
-    if command -v asdf &> /dev/null; then
-      . "$HOME/.asdf/asdf.sh"
-      . "$HOME/.asdf/completions/asdf.bash"
-    fi
+  linux*) 
+    . "$HOME/.asdf/asdf.sh"
     ;;
 esac
 
