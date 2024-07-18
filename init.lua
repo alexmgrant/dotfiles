@@ -98,15 +98,16 @@ vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
 
 require'nvim-treesitter.configs'.setup({
-  ensure_installed = { 
-    "lua", 
-    "vim", 
-    "vimdoc", 
-    "markdown", 
+  ensure_installed = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "markdown",
     "markdown_inline",
     "typescript",
     "javascript",
-    "tsx"
+    "tsx",
+    "ruby"
   },
 })
 
