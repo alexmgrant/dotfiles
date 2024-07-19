@@ -103,7 +103,9 @@ echo '👌 finito, gitconfig --global setup'
 
 setup_neovim_build() { 
   git -C neovim pull || git clone https://github.com/neovim/neovim
-  cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+  cd neovim
+  rm -rf build # clear CMake cache
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
 }
 
 case "$OSTYPE" in
