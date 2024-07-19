@@ -105,7 +105,11 @@ require('lazy').setup({
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
     },
+    config = function()
+      require("telescope").load_extension("lazygit")
+    end,
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
@@ -114,7 +118,7 @@ require('lazy').setup({
   }
 })
 
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('tokyonight-night')
 vim.cmd.filetype('plugin indent on')
 
 vim.g['prettier#prettier_autoformat'] = 1
