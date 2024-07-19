@@ -108,13 +108,23 @@ setup_neovim_build() {
 
 case "$OSTYPE" in
   linux*) 
+    # set key repeat rate 
+    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
+    gsettings set org.gnome.desktop.peripherals.keyboard delay 250
+
     # install dependencies & build neovim
-    if [ "$SKIP_NVIM" = false ]; then
+    if [ "$SKIP_NVIM" == false ]; then
       sudo apt-get --assume-yes install ninja-build gettext cmake unzip curl build-essential  
       setup_neovim_build
       cd build && cpack -G DEB && sudo dpkg -i --force-overwrite nvim-linux64.deb 
       echo '👌 finito, installed neovim'  
     fi
+
+    # install lazygit
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
     ;;
 esac
 
@@ -134,12 +144,15 @@ case "$OSTYPE" in
     defaults write com.apple.finder AppleShowAllFiles YES
 
     # install dependencies & build neovim
-    if [ "$SKIP_NVIM" = false ]; then
+    if [ "$SKIP_NVIM" == false ]; then
       brew install ninja cmake gettext curl
       setup_neovim_build
       sudo make install
       echo '👌 finito, installed neovim'
     fi
+
+    # install lazygit
+    brew install jesseduffield/lazygit/lazygit
     ;;
 esac
 
@@ -149,7 +162,7 @@ fi
 
 ln -sf "$SCRIPT_DIR/.luarc.json" $HOME/.config/nvim/luarc.json
 ln -sf "$SCRIPT_DIR/init.lua" $HOME/.config/nvim/init.lua
-echo '👌 finito, copied init.vim'
+echo '👌 finito, copied init.lua'
 
 echo "set editing-mode vi" >> $HOME/.inputrc
 
