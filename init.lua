@@ -310,6 +310,7 @@ require('lazy').setup({
       {
         'echasnovski/mini.nvim',
         config = function()
+          require('mini.cursorword').setup()
           -- Better Around/Inside textobjects
           --
           -- Examples:
