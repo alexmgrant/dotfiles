@@ -409,16 +409,16 @@ require('lazy').setup({
           section_separators = { left = '', right = ''},
         },
         sections = {
-          lualine_a = {'branch'},
-          lualine_b = {'filename'},
+          lualine_a = {},
+          lualine_b = {},
           lualine_c = {
             {symbols.get, cond = symbols.has }
           },
           lualine_x = {
             {git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available}
           },
-          lualine_y = {},
-          lualine_z = {}
+          lualine_y = {'branch'},
+          lualine_z = {'filename'}
         },
         inactive_sections = {
           lualine_a = {},
