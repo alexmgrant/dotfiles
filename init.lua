@@ -301,9 +301,34 @@ require('lazy').setup({
     cmd = "Trouble",
     keys = {
       {
-        "<leader>t",
+        "<leader>tt",
         "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>tT",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>tL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>tQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
       },
     },
   },
@@ -335,6 +360,20 @@ require('lazy').setup({
     config = function ()
       local git_blame = require('gitblame')
       vim.g.gitblame_display_virtual_text = 0
+      vim.g.gitblame_message_template = '<author> • <date>'
+      vim.g.gitblame_date_format = '%r'
+
+      local trouble = require('trouble')
+      local symbols = trouble.statusline({
+        mode = "lsp_document_symbols",
+        groups = {},
+        title = false,
+        filter = { range = true },
+        format = "{kind_icon}{symbol.name:Normal}",
+        -- The following line is needed to fix the background color
+        -- Set it to the lualine section you want to use
+        hl_group = "lualine_c_normal",
+      })
 
       local colors = {
         cyan   = '#79dac8',
@@ -344,7 +383,7 @@ require('lazy').setup({
         grey   = '#303030',
       }
 
-      local bubbles_theme = {
+      local theme = {
         normal = {
           a = { fg = colors.white, bg = colors.grey },
           b = { fg = colors.white, bg = colors.grey },
@@ -364,18 +403,20 @@ require('lazy').setup({
 
       require('lualine').setup({
         options = {
-          theme = bubbles_theme,
+          theme = theme,
           icons_enabled = vim.g.have_nerd_font,
           component_separators = { left = '', right = ''},
           section_separators = { left = '', right = ''},
         },
         sections = {
-          lualine_a = {
-            'branch',
-          },
+          lualine_a = {'branch'},
           lualine_b = {'filename'},
-          lualine_c = {},
-          lualine_x = { { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available } },
+          lualine_c = {
+            {symbols.get, cond = symbols.has }
+          },
+          lualine_x = {
+            {git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available}
+          },
           lualine_y = {},
           lualine_z = {}
         },
@@ -474,7 +515,7 @@ require("nvim-tree").setup({
 
 local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(_, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp_zero.default_keymaps({buffer = bufnr})
