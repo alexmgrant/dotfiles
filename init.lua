@@ -266,7 +266,18 @@ require('lazy').setup({
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
-  {'nvim-tree/nvim-tree.lua'},
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      local nvim_tree = require('nvim-tree')
+
+      nvim_tree.setup({
+        view = {
+          width = {}
+        }
+      })
+    end
+  },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -335,7 +346,6 @@ require('lazy').setup({
   {
     'echasnovski/mini.nvim',
     config = function()
-      require('mini.cursorword').setup()
       -- Better Around/Inside textobjects
       --
       -- Examples:
@@ -430,6 +440,16 @@ require('lazy').setup({
         },
       })
     end,
+  },
+  {
+    'RRethy/vim-illuminate',
+    keys = {
+      {
+        "<C-i>",
+        "<cmd>IlluminateToggle<cr>",
+        desc = "Toggle Illuminate",
+      }
+    }
   }
 }, {
     ui = {
