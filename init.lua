@@ -79,7 +79,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.have_nerd_font = false
 
 require('lazy').setup({
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+  { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' },
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -103,14 +103,13 @@ require('lazy').setup({
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
           -- Opens a popup that displays documentation about the word under your cursor
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
         end,
       })
     end,
   },
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-  {'hrsh7th/cmp-nvim-lsp'},
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'hrsh7th/cmp-nvim-lsp' },
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -208,31 +207,32 @@ require('lazy').setup({
       }
     end,
   },
-  {'L3MON4D3/LuaSnip'},
+  { 'L3MON4D3/LuaSnip' },
   {
     'folke/tokyonight.nvim',
     priority = 1000,
-    init = function ()
+    init = function()
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
-  {'nvim-lua/plenary.nvim'},
+  { 'nvim-lua/plenary.nvim' },
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
-    dependencies = {'nvim-lua/plenary.nvim'}
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.8',
+    dependencies = { 'nvim-lua/plenary.nvim' }
   },
-  {'sbdchd/neoformat'},
-  {'github/copilot.vim'},
-  {'vim-ruby/vim-ruby'},
-  {'tpope/vim-rails'},
-  {'dense-analysis/ale'},
-  {'tpope/vim-fugitive'},
-  {'prettier/vim-prettier'},
+  { 'sbdchd/neoformat' },
+  { 'github/copilot.vim' },
+  { 'vim-ruby/vim-ruby' },
+  { 'tpope/vim-rails' },
+  { 'dense-analysis/ale' },
+  { 'tpope/vim-fugitive' },
+  { 'prettier/vim-prettier' },
   {
     'tyru/open-browser-github.vim',
-    dependencies = {'tyru/open-browser.vim'}
+    dependencies = { 'tyru/open-browser.vim' }
   },
-  {'whiteinge/diffconflicts'},
+  { 'whiteinge/diffconflicts' },
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -367,7 +367,7 @@ require('lazy').setup({
     dependencies = {
       "f-person/git-blame.nvim"
     },
-    config = function ()
+    config = function()
       local git_blame = require('gitblame')
       vim.g.gitblame_display_virtual_text = 0
       vim.g.gitblame_message_template = '<author> • <date>'
@@ -386,11 +386,11 @@ require('lazy').setup({
       })
 
       local colors = {
-        cyan   = '#79dac8',
-        black  = '#080808',
-        white  = '#c6c6c6',
-        red    = '#ff5189',
-        grey   = '#303030',
+        cyan  = '#79dac8',
+        black = '#080808',
+        white = '#c6c6c6',
+        red   = '#ff5189',
+        grey  = '#303030',
       }
 
       local theme = {
@@ -415,26 +415,26 @@ require('lazy').setup({
         options = {
           theme = theme,
           icons_enabled = vim.g.have_nerd_font,
-          component_separators = { left = '', right = ''},
-          section_separators = { left = '', right = ''},
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
         },
         sections = {
           lualine_a = {},
           lualine_b = {},
           lualine_c = {
-            {symbols.get, cond = symbols.has }
+            { symbols.get, cond = symbols.has }
           },
           lualine_x = {
-            {git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available}
+            { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
           },
-          lualine_y = {'branch'},
-          lualine_z = {'filename'}
+          lualine_y = { 'branch' },
+          lualine_z = { 'filename' }
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {'filename'},
-          lualine_x = {'location'},
+          lualine_c = { 'filename' },
+          lualine_x = { 'location' },
           lualine_y = {},
           lualine_z = {}
         },
@@ -452,26 +452,26 @@ require('lazy').setup({
     }
   }
 }, {
-    ui = {
-      -- If you are using a Nerd Font: set icons to an empty table which will use the
-      -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-      icons = vim.g.have_nerd_font and {} or {
-        cmd = '⌘',
-        config = '➲',
-        event = '☁',
-        ft = '↳',
-        init = '☼',
-        keys = '',
-        plugin = '☇',
-        runtime = '⌨',
-        require = '',
-        source = '⇪',
-        start = '☑',
-        task = '☐',
-        lazy = '☾ ',
-      },
+  ui = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '➲',
+      event = '☁',
+      ft = '↳',
+      init = '☼',
+      keys = '',
+      plugin = '☇',
+      runtime = '⌨',
+      require = '',
+      source = '⇪',
+      start = '☑',
+      task = '☐',
+      lazy = '☾ ',
     },
-  })
+  },
+})
 
 vim.cmd.filetype('plugin indent on')
 
@@ -490,7 +490,9 @@ local function nvim_tree_on_attach(bufnr)
   api.config.mappings.default_on_attach(bufnr)
 
   -- custom mappings
-  vim.keymap.set('n', '<C-t>', function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end, opts('Toggle'))
+  vim.keymap.set('n', '<C-t>',
+    function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end,
+    opts('Toggle'))
 end
 
 require("nvim-tree").setup({
@@ -538,7 +540,7 @@ local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(_, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
+  lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
 require('mason').setup({})
@@ -564,7 +566,7 @@ local cmp = require('cmp')
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
     -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
     -- Ctrl+Space to trigger completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -586,7 +588,7 @@ cmp.setup({
 
 -- vim-ruby | vim-rails settings for ruby and eruby filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"ruby", "eruby"},
+  pattern = { "ruby", "eruby" },
   callback = function()
     vim.g.rubycomplete_buffer_loading = 1
     vim.g.rubycomplete_classes_in_global = 1
