@@ -450,7 +450,8 @@ require('lazy').setup({
         desc = "Toggle Illuminate",
       }
     }
-  }
+  },
+  { 'preservim/nerdcommenter' }
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
