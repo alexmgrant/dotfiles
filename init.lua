@@ -47,12 +47,6 @@ vim.g.mapleader = ' '
 vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader><CR>', ':so ~/.config/nvim/init.lua<CR>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fw', '<cmd>Telescope grep_string<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true })
-
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>:q<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>l', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>h', '<C-w>h', { noremap = true })
@@ -215,11 +209,47 @@ require('lazy').setup({
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
+  {'projekt0n/github-nvim-theme'},
   { 'nvim-lua/plenary.nvim' },
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    dependencies = {
+      {'nvim-lua/plenary.nvim'},
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+      },
+    },
+    keys = {
+      {'<leader>ff', '<cmd>Telescope find_files<CR>'},
+      {'<leader>fg', '<cmd>Telescope live_grep<CR>'},
+      {'<leader>fw', '<cmd>Telescope grep_string<CR>'},
+      {'<leader>fb', '<cmd>Telescope buffers<CR>'},
+      {'<leader>fh', '<cmd>Telescope help_tags<CR>'},
+    },
+    config = function()
+      local telescope = require("telescope")
+      telescope.setup({
+        pickers = {
+          live_grep = {
+            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            additional_args = function(_)
+              return { "--hidden" }
+            end
+          },
+          find_files = {
+            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            hidden = true
+          }
+
+        },
+        extensions = {
+          "fzf"
+        },
+      })
+      telescope.load_extension("fzf")
+    end,
   },
   { 'sbdchd/neoformat' },
   { 'github/copilot.vim' },
