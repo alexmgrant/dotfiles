@@ -265,7 +265,66 @@ require('lazy').setup({
     dependencies = { 'tyru/open-browser.vim' }
   },
   { 'whiteinge/diffconflicts' },
-  { 'nvim-tree/nvim-tree.lua' },
+  {
+    'nvim-tree/nvim-tree.lua',
+    lazy = false,
+    version = '1.9.0',
+    config = function()
+      local function nvim_tree_on_attach(bufnr)
+        local api = require "nvim-tree.api"
+
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+
+        -- default mappings
+        api.config.mappings.default_on_attach(bufnr)
+
+        -- custom mappings
+        vim.keymap.set('n', '<C-t>', function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end, opts('Toggle'))
+      end
+      require("nvim-tree").setup({
+        on_attach = nvim_tree_on_attach,
+        view = {
+          side = 'right',
+          number = true,
+          relativenumber = true,
+          adaptive_size = true,
+        },
+        renderer = {
+          icons = {
+            show = {
+              file = false,
+              folder = true,
+              folder_arrow = false,
+            },
+            git_placement = "after",
+            glyphs = {
+              git = {
+                unstaged = "○",
+                staged = "●",
+                unmerged = "◑",
+                renamed = "➲",
+                untracked = "◍",
+                deleted = "⌫",
+                ignored = "◌",
+              },
+              folder = {
+                arrow_closed = "→",
+                arrow_open = "↓",
+                default = "↳",
+                open = "↴",
+                empty = "∅",
+                empty_open = "↴",
+                symlink = "↔",
+                symlink_open = "↕",
+              },
+            },
+          },
+        },
+      })
+    end,
+  },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -449,7 +508,6 @@ require('lazy').setup({
       harpoon:setup({})
 
       vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-
       -- Toggle previous & next buffers stored within Harpoon list
       vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
       vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
@@ -476,15 +534,15 @@ require('lazy').setup({
           sorter = conf.generic_sorter({}),
           attach_mappings = function(prompt_bufnr, map)
             map("i", "<C-d>", function()
-                local state = require("telescope.actions.state")
-                local selected_entry = state.get_selected_entry()
-                local current_picker = state.get_current_picker(prompt_bufnr)
+              local state = require("telescope.actions.state")
+              local selected_entry = state.get_selected_entry()
+              local current_picker = state.get_current_picker(prompt_bufnr)
 
-                table.remove(harpoon_files.items, selected_entry.index)
-                current_picker:refresh(finder())
+              table.remove(harpoon_files.items, selected_entry.index)
+              current_picker:refresh(finder())
             end)
             return true
-        end,
+          end,
         }):find()
       end
 
@@ -520,63 +578,6 @@ vim.g['prettier#prettier_autoformat'] = 1
 vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
 
-local function nvim_tree_on_attach(bufnr)
-  local api = require "nvim-tree.api"
-
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  -- default mappings
-  api.config.mappings.default_on_attach(bufnr)
-
-  -- custom mappings
-  vim.keymap.set('n', '<C-t>',
-    function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end,
-    opts('Toggle'))
-end
-
-require("nvim-tree").setup({
-  on_attach = nvim_tree_on_attach,
-  view = {
-    side = 'right',
-    number = true,
-    relativenumber = true,
-    adaptive_size = true,
-  },
-  renderer = {
-    icons = {
-      show = {
-        file = false,
-        folder = true,
-        folder_arrow = false,
-      },
-      git_placement = "after",
-      glyphs = {
-        git = {
-          unstaged = "○",
-          staged = "●",
-          unmerged = "◑",
-          renamed = "➲",
-          untracked = "◍",
-          deleted = "⌫",
-          ignored = "◌",
-        },
-        folder = {
-          arrow_closed = "→",
-          arrow_open = "↓",
-          default = "↳",
-          open = "↴",
-          empty = "∅",
-          empty_open = "↴",
-          symlink = "↔",
-          symlink_open = "↕",
-        },
-      },
-    },
-  },
-})
-
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(_, bufnr)
@@ -591,7 +592,7 @@ local servers = {
   ruby_lsp = {},
   sorbet = {},
   lua_ls = {
-     Lua = {
+    Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
       diagnostics = { globals = { "vim" } },
