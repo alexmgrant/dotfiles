@@ -84,6 +84,7 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          local opts = { buffer = event.buf }
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
@@ -92,15 +93,26 @@ require('lazy').setup({
           -- Find references for the word under your cursor
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           --  Useful when your language has ways of declaring types without an actual implementation
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           -- Jump to the type of the word under your cursor
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('go', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
           -- Fuzzy find all the symbols in your current document
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
           -- Rename the variable under your cursor
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
           -- Opens a popup that displays documentation about the word under your cursor
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
+
+          --vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+          --vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+          vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+          --vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+          --vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+          --vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+          vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+          vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+          vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+          vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
         end,
       })
     end,
@@ -197,6 +209,7 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'copilot' },
           { name = 'luasnip' },
           { name = 'path' },
         },
@@ -211,24 +224,24 @@ require('lazy').setup({
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
-  {'projekt0n/github-nvim-theme'},
+  { 'projekt0n/github-nvim-theme' },
   { 'nvim-lua/plenary.nvim' },
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
     dependencies = {
-      {'nvim-lua/plenary.nvim'},
+      { 'nvim-lua/plenary.nvim' },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
       },
     },
     keys = {
-      {'<leader>ff', '<cmd>Telescope find_files<CR>'},
-      {'<leader>fg', '<cmd>Telescope live_grep<CR>'},
-      {'<leader>fw', '<cmd>Telescope grep_string<CR>'},
-      {'<leader>fb', '<cmd>Telescope buffers<CR>'},
-      {'<leader>fh', '<cmd>Telescope help_tags<CR>'},
+      { '<leader>ff', '<cmd>Telescope find_files<CR>' },
+      { '<leader>fg', '<cmd>Telescope live_grep<CR>' },
+      { '<leader>fw', '<cmd>Telescope grep_string<CR>' },
+      { '<leader>fb', '<cmd>Telescope buffers<CR>' },
+      { '<leader>fh', '<cmd>Telescope help_tags<CR>' },
     },
     config = function()
       local telescope = require("telescope")
@@ -281,7 +294,9 @@ require('lazy').setup({
         api.config.mappings.default_on_attach(bufnr)
 
         -- custom mappings
-        vim.keymap.set('n', '<C-t>', function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end, opts('Toggle'))
+        vim.keymap.set('n', '<C-t>',
+          function() api.tree.toggle({ path = "<args>", find_file = false, update_root = false, focus = true, }) end,
+          opts('Toggle'))
       end
       require("nvim-tree").setup({
         on_attach = nvim_tree_on_attach,
@@ -547,7 +562,7 @@ require('lazy').setup({
       end
 
       vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
-      { desc = "Open harpoon window" })
+        { desc = "Open harpoon window" })
     end,
   }
 }, {
@@ -577,6 +592,19 @@ vim.cmd.filetype('plugin indent on')
 vim.g['prettier#prettier_autoformat'] = 1
 vim.g['prettier#autoformat_config_present'] = 1
 vim.g['prettier#autoformat_require_pragma'] = 0
+
+-- Reserve a space in the gutter
+-- This will avoid an annoying layout shift in the screen
+vim.opt.signcolumn = 'yes'
+
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
 local lsp_zero = require('lsp-zero')
 
@@ -623,37 +651,6 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
-
-local cmp = require('cmp')
--- local cmp_action = lsp_zero.cmp_action()
-
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-    -- Ctrl+Space to trigger completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
-
-    -- Navigate between snippet placeholder
-    -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-    -- Scroll up and down in the completion documentation
-    -- ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    -- ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  }),
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'copilot' },
-    { name = 'luasnip' },
-  },
-})
 
 -- vim-ruby | vim-rails settings for ruby and eruby filetypes
 vim.api.nvim_create_autocmd("FileType", {
