@@ -120,7 +120,10 @@ prompt pure
 # setup linux
 case "$OSTYPE" in
   linux*) 
+
     . "$HOME/.asdf/asdf.sh"
+    alias chat="open http://localhost:3080"
+
     ;;
 esac
 
