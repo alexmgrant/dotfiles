@@ -119,7 +119,7 @@ prompt pure
 
 # setup linux
 case "$OSTYPE" in
-  linux*) 
+  linux*)
 
     . "$HOME/.asdf/asdf.sh"
     alias chat="open http://localhost:3080"
@@ -141,12 +141,20 @@ case "$OSTYPE" in
     ;;
 esac
 
-
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 
+# Shopify
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
-
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-
 # cloudplatform: add Shopify clusters to your local kubernetes config
 export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/alex/.kube/config:/Users/alex/.kube/config.shopify.cloudplatform
+# Shopify end
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# pnpm
+export PNPM_HOME="/Users/alex/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac

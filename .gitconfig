@@ -1,8 +1,8 @@
 [include]
   # Include user-specific info like git credentials.
   path = ~/.gitconfig.local
-  path = ~/dotfiles/personal/.gitconfig
   path = ~/shopify-dotfiles/personal/.gitconfig
+	path = /Users/alex/.config/dev/gitconfig
 
 [alias]
   # Amend the currently staged files to the latest commit
@@ -91,3 +91,8 @@
   # resolve that same conflict in a future rebase, this setting will reuse your previously recorded conflict resolution.
 	enabled = true
   autoupdate = true
+[user]
+	email = alex.grant@shopify.com
+	name = Alex Grant
+[maintenance]
+	repo = /Users/alex/world/trees/root/src
