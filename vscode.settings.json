@@ -1,105 +1,157 @@
 {
-  "security.workspace.trust.untrustedFiles": "open",
-  "explorer.confirmDelete": false,
-  "workbench.preferredHighContrastColorTheme": "Tokyo Night",
-  "workbench.preferredLightColorTheme": "Tokyo Night Light",
-  "workbench.sideBar.location": "right",
-  "eslint.run": "onSave",
-  "workbench.editor.revealIfOpen": false,
-  "files.exclude": {
-    "node_modules": true
-  },
-  "gitlens.currentLine.enabled": false,
-  "gitlens.blame.highlight.locations": ["gutter"],
-  "gitlens.codeLens.enabled": false,
-  "gitlens.hovers.currentLine.over": "line",
-  "gitlens.hovers.enabled": false,
-  "eslint.codeAction.showDocumentation": {
-    "enable": true
-  },
-  "remote.SSH.defaultExtensions": [
-    "eamodio.gitlens",
-    "github.copilot",
-    "wallabyjs.quokka-vscode"
-  ],
-  "remote.SSH.connectTimeout": 300,
-  "remote.SSH.maxReconnectionAttempts": 3,
-  "github.copilot.enable": {
-    "*": true,
-    "yaml": false,
-    "plaintext": true,
-    "markdown": false
-  },
-  "diffEditor.ignoreTrimWhitespace": false,
-  "shopifyGlobal.mysqlEditor": "external",
-  "[ruby]": {
-    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    // Editor settings
+    "editor.bracketPairColorization.enabled": false,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
+    "editor.cursorSurroundingLines": 10,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.fontFamily": "'MonoLisa Variable-NoScript', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14.5,
+    "editor.fontLigatures": "'calt' on, 'liga' on, 'zero' on, 'ss02' off, 'ss06' off, 'ss01' on, 'ss10' on, 'frac' on",
+    "editor.fontVariations": true,
     "editor.formatOnSave": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.largeFileOptimizations": false,
+    "editor.lineHeight": 0,
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.rulers": [120],
+    "editor.suggestSelection": "first",
     "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnType": true,
-    "editor.semanticHighlighting.enabled": true,
-    "files.trimFinalNewlines": true
-  },
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "editor.bracketPairColorization.independentColorPoolPerBracketType": false,
-  "editor.minimap.enabled": false,
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  },
-  "editor.inlineSuggest.enabled": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.suggestSelection": "first",
-  "editor.tabSize": 2,
-  "editor.rulers": [120],
-  "editor.largeFileOptimizations": false,
-  "editor.bracketPairColorization.enabled": false,
 
-  "editor.fontFamily": "'MonoLisa Variable-NoScript', Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontSize": 14.5,
-  "editor.lineHeight": 0,
-  "editor.fontVariations": true,
-  "editor.fontLigatures": "'calt' on, 'liga' on, 'zero' on, 'ss02' off, 'ss06' off, 'ss01' on, 'ss10' on, 'frac' on",
+    // Explorer settings
+    "explorer.confirmDelete": false,
 
-  "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "Tokyo Night",
-  "workbench.colorTheme": "Tokyo Night Light",
-  "extensions.ignoreRecommendations": true,
+    // Files settings
+    "files.exclude": {
+        "node_modules": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
 
-  "editor.lineNumbers": "relative",
-  "editor.cursorSurroundingLines": 10,
-  "vim.vimrc.enable": true,
-  "vim.leader": "<space>",
-  "vim.normalModeKeyBindingsNonRecursive": [
-    // navigate/switch buffers
-    { "before": ["<S-h>"], "commands": [":bprevious"] },
-    { "before": ["<S-l>"], "commands": [":bnext"] },
-    // split windows
-    { "before": ["leader", "v"], "commands": [":vsplit"] },
-    { "before": ["leader", "s"], "commands": [":split"] },
-    // panes
-    {
-      "before": ["leader", "h"],
-      "commands": ["workbench.action.focusLeftGroup"]
+    // Git settings
+    "git.openRepositoryInParentFolders": "always",
+
+    // GitLens settings
+    "gitlens.blame.highlight.locations": ["gutter"],
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.hovers.enabled": false,
+
+    // GitHub Copilot settings
+    "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": false,
+        "plaintext": true,
+        "yaml": false
     },
-    {
-      "before": ["leader", "j"],
-      "commands": ["workbench.action.focusBelowGroup"]
+
+    // ESLint settings
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
     },
-    {
-      "before": ["leader", "k"],
-      "commands": ["workbench.action.focusAboveGroup"]
+    "eslint.run": "onSave",
+
+    // Remote SSH settings
+    "remote.SSH.connectTimeout": 300,
+    "remote.SSH.defaultExtensions": [
+        "eamodio.gitlens",
+        "github.copilot",
+        "wallabyjs.quokka-vscode"
+    ],
+    "remote.SSH.maxReconnectionAttempts": 3,
+
+    // Security settings
+    "security.workspace.trust.untrustedFiles": "open",
+
+    // Shopify settings
+    "shopifyGlobal.mysqlEditor": "external",
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.formatOnType": true,
+        "editor.insertSpaces": true,
+        "editor.semanticHighlighting.enabled": true,
+        "editor.tabSize": 2,
+        "files.trimFinalNewlines": true
     },
-    {
-      "before": ["leader", "l"],
-      "commands": ["workbench.action.focusRightGroup"]
-    },
-    // saving/closing file
-    { "before": ["leader", "w"], "commands": [":w!"] },
-    { "before": ["leader", "q"], "commands": [":q!"] },
-    { "before": ["leader", "x"], "commands": [":x!"] }
-  ],
-  "github.copilot.editor.enableAutoCompletions": true
+
+    // typescrip settings
+    "typescript.tsserver.log": "off",
+    "typescript.tsserver.trace": "messages",
+
+    // Vim settings
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<S-h>"],
+            "commands": ["workbench.action.previousEditor"]
+        },
+        {
+            "before": ["<S-l>"],
+            "commands": ["workbench.action.nextEditor"]
+        },
+        {
+            "before": ["<leader>", "v"],
+            "commands": ["workbench.action.splitEditorRight"]
+        },
+        {
+            "before": ["<leader>", "s"],
+            "commands": ["workbench.action.splitEditorDown"]
+        },
+        {
+            "before": ["<leader>", "h"],
+            "commands": ["workbench.action.focusLeftGroup"]
+        },
+        {
+            "before": ["<leader>", "j"],
+            "commands": ["workbench.action.focusBelowGroup"]
+        },
+        {
+            "before": ["<leader>", "k"],
+            "commands": ["workbench.action.focusAboveGroup"]
+        },
+        {
+            "before": ["<leader>", "l"],
+            "commands": ["workbench.action.focusRightGroup"]
+        },
+        {
+            "before": ["<leader>", "w"],
+            "commands": [":w!"]
+        },
+        {
+            "before": ["<leader>", "q"],
+            "commands": [":q!"]
+        },
+        {
+            "before": ["<leader>", "x"],
+            "commands": [":x!"]
+        }
+    ],
+    "vim.useSystemClipboard": true,
+
+    // Workbench settings
+    "workbench.colorTheme": "Tokyo Night Light",
+    "workbench.editor.revealIfOpen": false,
+    "workbench.preferredDarkColorTheme": "Tokyo Night",
+    "workbench.preferredHighContrastColorTheme": "Tokyo Night",
+    "workbench.preferredLightColorTheme": "Tokyo Night Light",
+    "workbench.sideBar.location": "right",
+    "window.autoDetectColorScheme": true,
+
+    // Other settings
+    "diffEditor.ignoreTrimWhitespace": false,
+    "extensions.ignoreRecommendations": true,
+    "html.autoClosingTags": false,
+    "javascript.autoClosingTags": false,
+    "typescript.autoClosingTags": false,
+    "typescript.updateImportsOnFileMove.enabled": "never",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "cursor.composer.agentLoopOnLints": false,
+    "security.promptForLocalFileProtocolHandling": false,
+    "cursor.composer.shouldAllowCustomModes": true
 }
+
